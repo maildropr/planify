@@ -81,6 +81,15 @@ def destroy
 end
 ```
 
+You can also test for features:
+
+```ruby
+# _nav.haml
+
+-if current_user.has_feature? :ajax_search
+  =ajax_search_form
+```
+
 ## Contributing
 
 1. Fork it
