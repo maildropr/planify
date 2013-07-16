@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "mongoid", ">= 3.0.0"
-  gem.add_dependency "active_support"
+  gem.add_dependency "activesupport"
 
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "database_cleaner"

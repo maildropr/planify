@@ -2,6 +2,7 @@ $: << File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require "mongoid"
 require "rspec"
+require "pry"
 
 require "planify"
 
