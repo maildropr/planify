@@ -1,5 +1,5 @@
-require "planify/version"
+require "mongoid"
 
-module Planify
-  # Your code goes here...
-end
+require "planify/plan"
+require "planify/trackable"
+require "planify/user"
