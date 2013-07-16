@@ -1,4 +1,5 @@
-# Planify
+Planify [![Build Status](https://secure.travis-ci.org/kdayton-/planify.png?branch=master)](http://travis-ci.org/kdayton-/planify) [![Code Climate](https://codeclimate.com/github/kdayton-/planify.png)](https://codeclimate.com/github/kdayton-/planify)
+========
 
 Make subscription plans and enforce their limits with Planify.
 
