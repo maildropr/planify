@@ -4,8 +4,8 @@ Planify [![Build Status](https://secure.travis-ci.org/kdayton-/planify.png?branc
 Make subscription plans and enforce their limits with Planify.
 
 ## Requirements
-
-Currently, Planify only supports Mongoid 3. Support for other ORMs will be a future improvement.
+* Ruby 1.9+
+* Mongoid 3 (Support for other ORMs will be a future improvement)
 
 ## Installation
 
