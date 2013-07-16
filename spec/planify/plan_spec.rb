@@ -50,4 +50,22 @@ describe Planify::Plan do
       subject.feature_enabled?(:dne_feature).should be_false
     end
   end
+
+  describe ".feature_disabled?" do
+    before { subject.feature(:ajax_search) }
+
+    it "returns true if the feature is not enabled for this plan" do
+      subject.feature_disabled?(:ajax_search).should be_false
+    end
+
+    it "returns true if the feature if explicitly disabled" do
+      subject.feature(:ajax_search, false)
+      subject.feature_disabled?(:ajax_search).should be_true
+    end
+
+    it "returns true if the feature does not exist" do
+      subject.feature_disabled?(:dne_feature).should be_true
+    end
+  end
+
 end
