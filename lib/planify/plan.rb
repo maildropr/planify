@@ -13,6 +13,10 @@ module Planify
       def max(klazz, limit)
         limits.set(klazz, limit)
       end
+
+      def limit(klazz)
+        limits.get(klazz)
+      end
     end
 
   end
