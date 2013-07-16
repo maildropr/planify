@@ -27,9 +27,9 @@ module Planify
       return klass.name if klass.is_a? Module
       return klass.name if klass.respond_to? :new # Class constant
 
-      if klass.is_a?(String) or klass.is_a?(Symbol)
+      if klass.is_a?(String) || klass.is_a?(Symbol)
         computed_class = constantize camelize(klass.to_s)
-        return computed_class.to_s
+        computed_class.to_s
       else
         klass.class.name
       end
