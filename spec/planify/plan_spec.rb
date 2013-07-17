@@ -6,7 +6,7 @@ describe Planify::Plan do
   describe ".limit" do
     before { subject.max(Post, 100) }
 
-    it "returns the max limit for a Trackable class" do
+    it "returns the max limit for a Limitable class" do
       subject.limit(Post).should eq 100
     end
   end

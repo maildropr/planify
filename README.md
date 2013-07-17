@@ -29,18 +29,18 @@ Or install it yourself as:
 
 ## Setup 
 
-First, we'll define a Trackable. Trackables are classes which can be limited based on plan settings.
+First, we'll define a `Limitable`. Limitables are classes which can be limited based on plan settings.
 
 ```ruby
 # app/models/widget.rb
 class Widget
   include Mongoid::Document
-  include Planify::Trackable
+  include Planify::Limitable
   ...
 end
 ```
 
-Next we define a Plan. Plans hold information about how many instances of a Class can be created, as well as features which are available to users subscribed to this plan:
+Next we define a Plan. Plans hold information about how many instances of a Limitable can be created, as well as features which are available to users subscribed to this plan:
 
 ```ruby
 # config/initializers/plans.rb
@@ -51,7 +51,7 @@ Planify::Plans.define :starter do
 end
 ```
 
-Next, create a User. Users have a Plan, and also store information about how many Trackables they have created.
+Next, create a User. Users have a Plan, and also store information about how many Limitables they have created.
 
 ```ruby
 class User
@@ -64,7 +64,7 @@ end
 
 ## Usage
 
-After creating your Trackables, Plan, and User models, you are ready to start tracking.
+After creating your Limitables, Plan, and User models, you are ready to start tracking.
 
 ```ruby
 # posts_controller.rb

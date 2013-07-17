@@ -12,13 +12,13 @@ module Planify
     end
 
     # Sets the limit for the given class constant
-    # @raise [ArgumentError] if +klass+ does not include module +Planify::Trackable+
+    # @raise [ArgumentError] if +klass+ does not include module +Planify::Limitable+
     # @param [String,Symbol,Class,Object] klass The class to set the limit for
     # @param [Integer] limit The number of instances of +klass+ which can be created
     # @return [Integer] The value of +limit+
     def set(klass, limit)
       key = normalize_class(klass)
-      raise ArgumentError unless constantize(key).include?(Planify::Trackable)
+      raise ArgumentError unless constantize(key).include?(Planify::Limitable)
       @limits[key] = limit
     end
 

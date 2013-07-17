@@ -1,4 +1,4 @@
 class Post
   include Mongoid::Document
-  include Planify::Trackable
+  include Planify::Limitable
 end

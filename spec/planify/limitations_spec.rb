@@ -3,7 +3,7 @@ require "spec_helper"
 describe Planify::Limitations do
   describe ".set" do
 
-    context "when specfied class does not include the Trackable module" do
+    context "when specfied class does not include the Limitable module" do
       it "raises ArgumentError" do
         expect { subject.set(Object, 100) }.to raise_exception(ArgumentError)
       end
@@ -28,7 +28,7 @@ describe Planify::Limitations do
     context "with a module" do
       it "sets the limitation for the module" do
         module Foo; end
-        Foo.send(:include, Planify::Trackable)
+        Foo.send(:include, Planify::Limitable)
 
         subject.set(Foo, 200)
         subject.get(Foo).should eq 200
