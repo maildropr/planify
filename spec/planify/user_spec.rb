@@ -10,7 +10,7 @@ describe Planify::User, focus: false do
     end
 
     it "should persist the plan name" do
-      subject.save validate: false
+      subject.save!
       user = User.find(subject.id)
 
       user.plan.limit(Post).should == 100
@@ -28,7 +28,7 @@ describe Planify::User, focus: false do
       end
 
       it "should store the configuration change" do
-        subject.save validate: false
+        subject.save!
         user = User.find(subject.id)
 
         user.plan.limit(Post).should == 5
