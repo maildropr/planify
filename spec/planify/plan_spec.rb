@@ -12,10 +12,10 @@ describe Planify::Plan do
   end
 
   describe ".max" do
-    before { subject.max(String, 5) }
+    before { subject.max(Post, 5) }
 
     it "sets the maximum number of Class allowed" do
-      subject.limit(String).should eq 5
+      subject.limit(Post).should eq 5
     end
   end
 

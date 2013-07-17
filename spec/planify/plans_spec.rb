@@ -12,10 +12,10 @@ describe Planify::Plans do
 
     it "given block should be evaluated on plan" do
       plan = Planify::Plans.define :starter do
-        max String, 10
+        max Post, 10
       end
 
-      Planify::Plans.get(:starter).limit(String).should == 10
+      Planify::Plans.get(:starter).limit(Post).should == 10
     end
   end
 
@@ -23,12 +23,12 @@ describe Planify::Plans do
     context "when plan is defined" do
       before do
         Planify::Plans.define :starter do
-          max String, 10
+          max Post, 10
         end
       end
 
       it "returns the plan" do
-        Planify::Plans.get(:starter).limit(String).should == 10
+        Planify::Plans.get(:starter).limit(Post).should == 10
       end
     end
 
