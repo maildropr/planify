@@ -32,7 +32,7 @@ Or install it yourself as:
 First, we'll define a Trackable. Trackables are classes which can be limited based on plan settings.
 
 ```ruby
-# app/models/client.rb
+# app/models/widget.rb
 class Widget
   include Mongoid::Document
   include Planify::Trackable
