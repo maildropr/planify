@@ -7,11 +7,11 @@ module Planify
     
     module ClassMethods
       def limits
-        @@limits ||= Limitations.new
+        @limits ||= Limitations.new
       end
 
       def features
-        @@features ||= Hash.new
+        @features ||= Hash.new
       end
 
       def max(klazz, limit)
@@ -33,6 +33,22 @@ module Planify
       def feature_disabled?(feature)
         !feature_enabled?(feature)
       end
+    end
+
+    def limit(klazz)
+      self.class.limit(klazz)
+    end
+
+    def feature_enabled?(feature)
+      self.class.feature_enabled?(feature)
+    end
+
+    def feature_disabled?(feature)
+      self.class.feature_disabled?(feature)
+    end
+
+    def features
+      self.class.features
     end
 
   end
