@@ -42,9 +42,15 @@ module Planify
     # Returns a duplicate instance of this plan
     # @return [Planify::Plan] an exact copy of this plan
     def dup
-      Plan.new.merge! self
+      duplicate = Plan.new
+      duplicate.merge! self
+
+      duplicate
     end
 
+    # Merges limits and features from +other_plan+ into self.
+    # @param [Planify::Plan] other_plan the plan to merge with
+    # @return [nil]
     def merge!(other_plan)
       other_plan.features.each do |f, enabled|
         feature f, enabled
@@ -54,7 +60,7 @@ module Planify
         max klass, lim
       end
 
-      self
+      nil
     end
 
   end

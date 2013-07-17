@@ -29,11 +29,23 @@ Or install it yourself as:
 
 ## Setup 
 
-First, we'll define a Plan. Plans hold information about how many instances of a Class can be created, as well as features which are available to users subscribed to this plan:
+First, we'll define a Trackable. Trackables are classes which can be limited based on plan settings.
 
 ```ruby
+# app/models/client.rb
+class Widget
+  include Mongoid::Document
+  include Planify::Trackable
+  ...
+end
+```
+
+Next we define a Plan. Plans hold information about how many instances of a Class can be created, as well as features which are available to users subscribed to this plan:
+
+```ruby
+# config/initializers/plans.rb
 Planify::Plans.define :starter do
-  max Client, 100 # Can only create up to 100 clients before needing to upgrade
+  max Widget, 100 # Can only create up to 100 widgets before needing to upgrade
 
   feature :ajax_search # Plan includes support for AJAX search
 end
