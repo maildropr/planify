@@ -1,0 +1,6 @@
+test:
+  sessions:
+    default:
+      database: planify
+      hosts:
+        - localhost:27017

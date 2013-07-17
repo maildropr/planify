@@ -1,5 +1,5 @@
 module Planify
-  module ClassNormalizer
+  module ClassHelper
 
     def normalize_class(klass)
       return klass.name if klass.is_a? Module

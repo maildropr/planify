@@ -1,14 +1,14 @@
-require "planify/util/class_normalizer"
+require "planify/util/class_helper"
 
 module Planify
 
   # +Planify::Limitations+ is a simple container for Class constants and their associated limits
   class Limitations
     include ActiveSupport::Inflector
-    include Planify::ClassNormalizer
+    include Planify::ClassHelper
 
-    def initialize
-      @limits = Hash.new
+    def initialize(limits = {})
+      @limits = limits
     end
 
     # Sets the limit for the given class constant

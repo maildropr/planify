@@ -68,4 +68,31 @@ describe Planify::Plan do
     end
   end
 
+  describe ".dup" do
+    it "returns a duplicate plan with the same features and limits" do
+      duplicate = subject.dup
+
+      duplicate.should_not be subject
+      duplicate.limits.all.should == subject.limits.all
+      duplicate.features.should == subject.features
+    end
+  end
+
+  describe ".merge!" do
+
+    let(:pro_plan) do
+      Planify::Plans.define :pro do
+        max Post, 1000
+        feature :ajax_search
+      end
+    end
+
+    it "merges settings in other plan into this plan" do
+      subject.merge! pro_plan
+
+      subject.features.keys.should include :ajax_search
+      subject.limit(Post).should == 1000
+    end
+  end
+
 end

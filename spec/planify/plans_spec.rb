@@ -20,6 +20,13 @@ describe Planify::Plans do
   end
 
   describe ".get" do
+    context "with a string" do
+      it "will match the plan" do
+        Planify::Plans.define :starter
+        Planify::Plans.get("starter").should be_an_instance_of Planify::Plan
+      end
+    end
+
     context "when plan is defined" do
       before do
         Planify::Plans.define :starter do

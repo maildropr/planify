@@ -6,6 +6,8 @@ require "pry"
 
 require "planify"
 
+Mongoid.load!("spec/config/mongoid.yml", :test)
+
 MODELS = File.join(File.dirname(__FILE__), "models")
 Dir[ File.join(MODELS, "*.rb") ].sort.each { |f| require f }
 
@@ -21,5 +23,5 @@ RSpec.configure do |config|
       max Post, 100
     end
   end
-  
+
 end

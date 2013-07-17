@@ -1,7 +1,7 @@
 module Planify
   module Plans
 
-    @plans = Hash.new
+    @plans = ActiveSupport::HashWithIndifferentAccess.new
 
     def self.define(name, &block)
       plan = Plan.new
