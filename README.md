@@ -4,6 +4,7 @@ Planify [![Build Status](https://secure.travis-ci.org/kdayton-/planify.png?branc
 Make subscription plans and enforce their limits with Planify.
 
 ## Requirements
+
 Ruby:
 * 1.9.3
 * 2.0.0
@@ -28,35 +29,24 @@ Or install it yourself as:
 
 ## Setup 
 
-First, create some Trackables. These are classes which will be limited by the user's plan. For instance, if we were making a blog SaaS:
+First, we'll define a Plan. Plans hold information about how many instances of a Class can be created, as well as features which are available to users subscribed to this plan:
 
 ```ruby
-class Post
-  include Mongoid::Document
-  include Planify::Trackable
-end
-```
-
-Next, create a Plan. Plans hold information about how many Trackables can be created, as well as features which are available to the user:
-
-```ruby
-class StarterPlan
-  include Planify::Plan
-
-  max Post, 100 # Can only create up to 100 posts before needing to upgrade
+Planify::Plans.define :starter do
+  max Client, 100 # Can only create up to 100 clients before needing to upgrade
 
   feature :ajax_search # Plan includes support for AJAX search
 end
 ```
 
-Finally, create a User. Users have a Plan, and also store information about how many Trackables they have created.
+Next, create a User. Users have a Plan, and also store information about how many Trackables they have created.
 
 ```ruby
 class User
   include Mongoid::Document
   include Planify::User
 
-  has_plan StarterPlan
+  has_plan :starter
 end
 ```
 

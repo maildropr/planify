@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Planify::Plan do
-  subject { StarterPlan }
+  subject { Planify::Plans.get(:starter) }
 
   describe ".limit" do
     before { subject.max(Post, 100) }

@@ -2,21 +2,21 @@ require "spec_helper"
 
 describe Planify::User, focus: false do
   subject { User.new }
-  before { subject.plan = StarterPlan }
+  before { subject.has_plan :starter }
 
   it "should have a plan" do
-    subject.plan.should == StarterPlan
+    subject.plan.limit(Post).should == 100
   end
 
   context "with a configuration block" do
     before do
-      subject.plan = StarterPlan do
+      subject.has_plan :starter do
         max Post, 5
       end
     end
 
     it "the configuration should override the plan defaults" do
-      subject.plan
+      subject.plan.limit(Post).should == 5
     end
   end
 
