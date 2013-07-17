@@ -18,6 +18,10 @@ describe Planify::User, focus: false do
     it "the configuration should override the plan defaults" do
       subject.plan.limit(Post).should == 5
     end
+
+    it "should not change the base plan" do
+      Planify::Plans.get(:starter).limit(Post).should == 100
+    end
   end
 
 end

@@ -34,5 +34,11 @@ module Planify
       end
     end
 
+    # Returns all limits defined in this instance
+    # @return [Hash(String,Integer)] A hash mapping class constant name to it's limit
+    def all
+      @limits
+    end
+
   end
 end

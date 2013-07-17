@@ -4,7 +4,7 @@ module Planify
   class Plan
 
     attr_reader :features, :limits
-    
+
     def initialize
       @limits = Limitations.new
       @features = Hash.new
@@ -37,6 +37,18 @@ module Planify
     # @return [Boolean] +true+ if +feature+ is disabled or undefined, +false+ if +feature+ is enabled.
     def feature_disabled?(feature)
       !feature_enabled?(feature)
+    end
+
+    # Returns a duplicate instance of this plan
+    # @return [Planify::Plan] an exact copy of this plan
+    def dup
+      Plan.new.tap do |plan|
+        @limits.all.each do |klass, limit|
+          max klass, limit
+        end
+
+        @features.each { |f, enabled| feature f, enabled }
+      end
     end
 
   end
