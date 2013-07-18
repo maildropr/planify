@@ -51,20 +51,27 @@ Planify::Plans.define :starter do
 end
 ```
 
-Next, create a User. Users have a Plan, and also store information about how many Limitables they have created.
+Next, create a User class with the `Planify::User` mixin. This will add `Limitable` counting and plan storage.
 
 ```ruby
 class User
   include Mongoid::Document
   include Planify::User
-
-  has_plan :starter
+  ...
 end
 ```
 
+Then assign the user a plan:
+
+```ruby
+@user = User.create
+@user.has_plan :starter
+```
+
+
 ## Usage
 
-After creating your Limitables, Plan, and User models, you are ready to start tracking.
+After creating your Limitables, Plan, and User models, you are ready to start enforcing limits.
 
 ```ruby
 # widgets_controller.rb
@@ -96,6 +103,51 @@ You can also test for features:
 -if current_user.has_feature? :ajax_search
   =ajax_search_form
 ```
+
+## Rails Integration
+
+Planify includes a Rails mixin, which adds some useful features to your controllers. To use it, include `Planify::Integrations::Rails` in your `ApplicationController`:
+
+```ruby
+# app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  include Planify::Integrations::Rails
+  ...
+end
+```
+
+This will include two methods: `enforce_limit!` and `limit_exceeded!`. `enforce_limit!` will call `limit_exceeded!` if the user is over their limit.
+
+```ruby
+# app/controllers/widget_controller.rb
+class WidgetController < ApplicationController
+  before_filter :enforce_widget_limit, only: [:new, :create]
+
+  ...
+
+  private
+
+  def enforce_widget_limit
+    enforce_limit! current_user, Widget
+  end
+end
+```
+
+If the user's Widget limit is exceeded it will raise an exception.
+
+You can change this behavior by creating your own `limit_exceeded!` method in your ApplicationController.
+
+```ruby
+# app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  include Planify::Integrations::Rails
+  
+  def limit_exceeded!
+    redirect_to upgrade_plan_url, notice: "You must upgrade your account!"
+  end
+end
+```
+
 
 ## Contributing
 

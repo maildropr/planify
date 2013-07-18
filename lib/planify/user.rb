@@ -68,6 +68,7 @@ module Planify
     private
 
     def load_plan_from_info(plan_info)
+      return nil unless plan_info
       plan = Planify::Plans.get(plan_info.name).dup
 
       if plan_info.has_overrides?
