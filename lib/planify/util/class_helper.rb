@@ -1,5 +1,6 @@
 module Planify
   module ClassHelper
+    include ActiveSupport::Inflector
 
     def normalize_class(klass)
       return klass.name if klass.is_a? Module

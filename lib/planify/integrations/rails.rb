@@ -2,21 +2,15 @@ module Planify
   module Integrations
 
     module Rails
-
-      class Railtie < Rails::Railtie
-        ActionController::Base.send(:include, ActionControllerExtensions)
-      end
-
-      module ActionControllerExtensions
-        def not_authorized!
+      module Helpers
+        def limit_exceeded!
           raise "Limit exceeded"
         end
 
         def enforce_limit!(user, limitable)
-          not_authorized! unless user.can_create?(limitable)
+          limit_exceeded! unless user.may_create?(limitable)
         end
       end
-
     end
 
   end

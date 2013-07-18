@@ -52,7 +52,7 @@ describe Planify::User, focus: false do
     before { subject.plan.max(Post, 1) }
     
     it "should return true if limit for class is not reached" do
-      subject.can_create?(Post).should be_true
+      subject.can_create?(:post).should be_true
     end
 
     it "should return false if limit for class is exceeded" do
