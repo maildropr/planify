@@ -5,6 +5,7 @@ describe Planify::User, focus: false do
   before(:each) do
     Planify::Plans.define :starter do
       max Post, 100
+      feature :ajax_search
     end
 
     subject.has_plan :starter
@@ -59,6 +60,21 @@ describe Planify::User, focus: false do
     end
   end
 
+  describe ".has_feature?" do
+    it "returns true if the users plan has the given feature enabled" do
+      subject.has_feature?(:ajax_search).should be_true
+    end
+
+    it "returns false if the users plan does not have the feature" do
+      subject.has_feature?(:dne_feature).should be_false
+    end
+
+    it "returns false if the feature is disabled for the users plan" do
+      subject.plan.feature(:ajax_search, false)
+      subject.has_feature?(:ajax_search).should be_false
+    end
+  end
+
   describe ".created" do
     it "should increase the creation count for the given limitable" do
       expect { subject.created Post }.to change{ subject.creation_count(Post) }.by(1)
@@ -73,15 +89,15 @@ describe Planify::User, focus: false do
     end
   end
 
-  describe ".deleted" do
+  describe ".destroyed" do
     before { subject.created Post }
     it "should decrease the creation count for the given limitable" do
-      expect { subject.deleted Post }.to change{ subject.creation_count(Post) }.by(-1)
+      expect { subject.destroyed Post }.to change{ subject.creation_count(Post) }.by(-1)
     end
 
     it "should persist the change" do
       subject.save!
-      subject.deleted Post
+      subject.destroyed Post
 
       user = User.find(subject.id)
       user.creation_count(Post).should == 0

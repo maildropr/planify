@@ -48,7 +48,7 @@ module Planify
       limitable_counts.increment(key)
     end
 
-    def deleted(limitable)
+    def destroyed(limitable)
       key = normalize_class(limitable)
       limitable_counts.decrement(key)
     end
@@ -56,6 +56,10 @@ module Planify
     def can_create?(limitable)
       key = normalize_class(limitable)
       limitable_counts.fetch(key) < plan.limit(key)
+    end
+
+    def has_feature?(feature)
+      plan.feature_enabled?(feature)
     end
 
     private

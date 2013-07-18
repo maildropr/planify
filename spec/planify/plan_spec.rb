@@ -66,6 +66,10 @@ describe Planify::Plan do
     it "returns true if the feature does not exist" do
       subject.feature_disabled?(:dne_feature).should be_true
     end
+
+    it "returns false if the feature is enabled" do
+      subject.feature_disabled?(:ajax_search).should be_false
+    end
   end
 
   describe ".dup" do
