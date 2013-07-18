@@ -10,15 +10,18 @@ module Planify
       @features = features
     end
 
-    def max(klass, limit)
-      @limits.set(klass, limit)
+    # Sets the maximum number of a +Planify::Limitable+ that a user can create on this plan
+    # @param [String,Symbol,Class,Object] limitable The class to set the limit of
+    # @param [Integer] limit The maxiumum number of +limitable+ that can be created
+    def max(limitable, limit)
+      @limits.set(limitable, limit)
     end
 
     # Gets the plan's limit for a given class constant
-    # @param [String,Symbol,Class,Object] klass The class to get the limit for
-    # @return [Integer, Float::INFINITY] The plan limit for +klass+, if one exists. Otherwise +Float::INFINITY+
-    def limit(klass)
-      @limits.get(klass)
+    # @param [String,Symbol,Class,Object] limitable The class to get the limit for
+    # @return [Integer, Float::INFINITY] The plan limit for +limitable+, if one exists. Otherwise +Float::INFINITY+
+    def limit(limitable)
+      @limits.get(limitable)
     end
 
     def feature(feature_name, enabled = true) 

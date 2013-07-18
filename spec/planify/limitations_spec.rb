@@ -63,7 +63,23 @@ describe Planify::Limitations do
           expect { subject.set(:non_class, 100) }.to raise_exception(NameError)
         end
       end
-    end #.set
+    end 
+  end # .set
 
-  end
+  describe ".get" do
+
+    context "when class limit is defined" do
+      before { subject.set(:post, 100) }
+      it "returns the limit" do
+        subject.get(Post).should == 100
+      end
+    end
+
+    context "when class limit is undefined" do
+      it "returns the default value" do
+        subject.get(User, 1).should == 1
+      end
+    end
+
+  end # .get
 end

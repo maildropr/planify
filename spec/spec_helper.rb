@@ -1,12 +1,14 @@
 $: << File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 
+require "simplecov"
+
 if ENV["CI"]
-  require "simplecov"
   require "coveralls"
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-  SimpleCov.start do
-    add_filter "spec"
-  end
+end
+
+SimpleCov.start do
+  add_filter "spec"
 end
 
 require "mongoid"
