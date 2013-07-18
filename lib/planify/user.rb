@@ -16,7 +16,7 @@ module Planify
 
     def has_plan(plan_name, &block)
       plan = Planify::Plans.get(plan_name)
-      self.planify_plan_info = PlanInfo.new(name: plan_name)
+      plan_info = PlanInfo.new(name: plan_name)
 
       if block_given?
         plan = plan.dup
@@ -25,9 +25,11 @@ module Planify
 
         plan.merge! configuration
 
-        self.planify_plan_info.limit_overrides = configuration.limits.all
-        self.planify_plan_info.feature_overrides = configuration.features
+        plan_info.limit_overrides = configuration.limits.all
+        plan_info.feature_overrides = configuration.features
       end
+
+      self.planify_plan_info = plan_info
     end
 
     def plan
