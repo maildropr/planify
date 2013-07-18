@@ -30,6 +30,7 @@ module Planify
       end
 
       self.planify_plan_info = plan_info
+      nil
     end
 
     def plan
