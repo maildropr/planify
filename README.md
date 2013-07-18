@@ -67,24 +67,24 @@ end
 After creating your Limitables, Plan, and User models, you are ready to start tracking.
 
 ```ruby
-# posts_controller.rb
+# widgets_controller.rb
 
 def create
   @user = current_user
-  @post = Post.create(params[:post])
+  @widget = Widget.create(params[:widget])
 
-  if @user.can_create? @post # User has not hit their Post cap
-    @post.save
-    @user.created :post
+  if @user.can_create? @widget # User has not hit their Widget cap
+    @widget.save
+    @user.created :widget
   end
 end
 
 def destroy
   @user = current_user
-  @post = Post.find(params[:id])
+  @widget = Widget.find(params[:id])
 
-  @post.destroy
-  @user.destroyed Post
+  @widget.destroy
+  @user.destroyed @widget
 end
 ```
 
