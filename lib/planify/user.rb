@@ -9,8 +9,8 @@ module Planify
 
     def self.included(base)
       base.class_eval do
-        embeds_one :planify_plan_info, as: :planify_user, class_name: "Planify::User::PlanInfo"
-        embeds_one :planify_limitable_counts, as: :planify_user, class_name: "Planify::User::LimitableCounts"
+        embeds_one :planify_plan_info, as: :planify_user, class_name: "Planify::User::PlanInfo", validate: false
+        embeds_one :planify_limitable_counts, as: :planify_user, class_name: "Planify::User::LimitableCounts", validate: false
       end
     end
 
