@@ -15,18 +15,18 @@ module Planify
     end
 
     def has_plan(plan_name, &block)
-      @plan = Planify::Plans.get(plan_name)
+      plan = Planify::Plans.get(plan_name)
       self.planify_plan_info = PlanInfo.new(name: plan_name)
 
       if block_given?
-        @plan = @plan.dup
-        @configuration = Planify::Plan.new
-        @configuration.instance_eval &block
+        plan = plan.dup
+        configuration = Planify::Plan.new
+        configuration.instance_eval &block
 
-        @plan.merge! @configuration
+        plan.merge! configuration
 
-        self.planify_plan_info.limit_overrides = @configuration.limits.all
-        self.planify_plan_info.feature_overrides = @configuration.features
+        self.planify_plan_info.limit_overrides = configuration.limits.all
+        self.planify_plan_info.feature_overrides = configuration.features
       end
     end
 
