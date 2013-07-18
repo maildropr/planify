@@ -63,12 +63,28 @@ describe Planify::User, focus: false do
     it "should increase the creation count for the given limitable" do
       expect { subject.created Post }.to change{ subject.creation_count(Post) }.by(1)
     end
+
+    it "should persist the change" do
+      subject.save!
+      subject.created Post
+
+      user = User.find(subject.id)
+      user.creation_count(Post).should == 1
+    end
   end
 
   describe ".deleted" do
     before { subject.created Post }
     it "should decrease the creation count for the given limitable" do
       expect { subject.deleted Post }.to change{ subject.creation_count(Post) }.by(-1)
+    end
+
+    it "should persist the change" do
+      subject.save!
+      subject.deleted Post
+
+      user = User.find(subject.id)
+      user.creation_count(Post).should == 0
     end
   end
 

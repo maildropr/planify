@@ -1,30 +1,22 @@
+require "planify/user/limitable_counts"
+require "planify/user/plan_info"
+
 require "planify/util/class_helper"
 
 module Planify
   module User
     include Planify::ClassHelper
 
-    class PlanInfo
-      include Mongoid::Document
-
-      field :name, type: String, default: nil
-      field :limit_overrides, type: Hash, default: nil
-      field :feature_overrides, type: Hash, default: nil
-
-      def has_overrides?
-        limit_overrides.present? || feature_overrides.present?
-      end
-    end
-
     def self.included(base)
       base.class_eval do
-        embeds_one :plan_info, class_name: "Planify::User::PlanInfo"
+        embeds_one :planify_plan_info, as: :planify_user, class_name: "Planify::User::PlanInfo"
+        embeds_one :planify_limitable_counts, as: :planify_user, class_name: "Planify::User::LimitableCounts"
       end
     end
 
     def has_plan(plan_name, &block)
       @plan = Planify::Plans.get(plan_name)
-      self.plan_info = PlanInfo.new(name: plan_name)
+      self.planify_plan_info = PlanInfo.new(name: plan_name)
 
       if block_given?
         @plan = @plan.dup
@@ -33,37 +25,37 @@ module Planify
 
         @plan.merge! @configuration
 
-        self.plan_info.limit_overrides = @configuration.limits.all
-        self.plan_info.feature_overrides = @configuration.features
+        self.planify_plan_info.limit_overrides = @configuration.limits.all
+        self.planify_plan_info.feature_overrides = @configuration.features
       end
     end
 
     def plan
-      @plan ||= load_plan_from_info(self.plan_info)
+      @plan ||= load_plan_from_info(self.planify_plan_info)
     end
 
     def limitable_counts
-      @counts ||= Hash.new(0)
+      self.planify_limitable_counts ||= LimitableCounts.new
     end
 
     def creation_count(limitable)
       key = normalize_class(limitable)
-      limitable_counts[key]
+      limitable_counts.fetch(key)
     end
 
     def created(limitable)
       key = normalize_class(limitable)
-      limitable_counts[key] += 1
+      limitable_counts.increment(key)
     end
 
     def deleted(limitable)
       key = normalize_class(limitable)
-      limitable_counts[key] -= 1
+      limitable_counts.decrement(key)
     end
 
     def can_create?(limitable)
       key = normalize_class(limitable)
-      limitable_counts[key] < plan.limit(key)
+      limitable_counts.fetch(key) < plan.limit(key)
     end
 
     private
