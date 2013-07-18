@@ -42,6 +42,30 @@ module Planify
       @plan ||= load_plan_from_info(self.plan_info)
     end
 
+    def limitable_counts
+      @counts ||= Hash.new(0)
+    end
+
+    def creation_count(limitable)
+      key = normalize_class(limitable)
+      limitable_counts[key]
+    end
+
+    def created(limitable)
+      key = normalize_class(limitable)
+      limitable_counts[key] += 1
+    end
+
+    def deleted(limitable)
+      key = normalize_class(limitable)
+      limitable_counts[key] -= 1
+    end
+
+    def can_create?(limitable)
+      key = normalize_class(limitable)
+      limitable_counts[key] < plan.limit(key)
+    end
+
     private
 
     def load_plan_from_info(plan_info)
