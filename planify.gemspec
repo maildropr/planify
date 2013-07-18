@@ -20,10 +20,4 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "mongoid", ">= 3.0.0"
   gem.add_dependency "activesupport"
-
-  gem.add_development_dependency "bundler"
-  gem.add_development_dependency "database_cleaner"
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "rspec", "~> 2.14"
-  gem.add_development_dependency "pry"
 end
