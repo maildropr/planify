@@ -13,6 +13,19 @@ module Planify
       def has_overrides?
         limit_overrides.present? || feature_overrides.present?
       end
+
+      def overrides_as_plan
+        Plan.new.tap do |p|
+          limit_overrides.try(:each) do |klass, limit|
+            p.max klass, limit
+          end
+
+          feature_overrides.try(:each) do |f, enabled|
+            p.feature f, enabled
+          end
+        end
+      end
+
     end
 
   end

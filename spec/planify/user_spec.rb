@@ -27,6 +27,7 @@ describe Planify::User, focus: false do
       before do
         subject.has_plan :starter do
           max Post, 5
+          feature :ajax_search, false
         end
       end
 

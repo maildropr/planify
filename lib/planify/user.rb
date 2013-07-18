@@ -65,29 +65,13 @@ module Planify
     private
 
     def load_plan_from_info(plan_info)
-      plan = Planify::Plans.get(plan_info.name)
+      plan = Planify::Plans.get(plan_info.name).dup
 
       if plan_info.has_overrides?
-        plan = dup_with_overrides(plan, 
-                                  plan_info.limit_overrides, 
-                                  plan_info.feature_overrides)
+        plan.merge! plan_info.overrides_as_plan
       end
 
       return plan
-    end
-
-    def dup_with_overrides(plan, limit_overrides, feature_overrides)
-      plan = plan.dup
-
-      plan.tap do |p|
-        limit_overrides.try(:each) do |klass, limit|
-          p.max klass, limit
-        end
-
-        feature_overrides.try(:each) do |f, enabled|
-          p.feature f, enabled
-        end
-      end
     end
 
   end
