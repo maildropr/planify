@@ -29,7 +29,8 @@ Or install it yourself as:
 
 ## Setup 
 
-First, we'll define a `Limitable`. Limitables are classes which can be limited based on plan settings.
+### Limitables
+Limitables are classes which can be limited based on plan settings. To create a limitable, include the `Planify::Limitable` mixin in your class.
 
 ```ruby
 # app/models/widget.rb
@@ -40,7 +41,8 @@ class Widget
 end
 ```
 
-Next we define a Plan. Plans hold information about how many instances of a Limitable can be created, as well as features which are available to users subscribed to this plan:
+### Plans
+Plans hold information about how many instances of a `Limitable` can be created, as well as which features are available to users subscribed to this plan:
 
 ```ruby
 # config/initializers/plans.rb
@@ -51,7 +53,8 @@ Planify::Plans.define :starter do
 end
 ```
 
-Next, create a User class with the `Planify::User` mixin. This will add `Limitable` counting and plan storage.
+### Users
+Add the `Planify::User` mixin to your user class. This will keep track of how many limitables the user has created, as well as their plan and and plan overrides:
 
 ```ruby
 class User
@@ -80,7 +83,7 @@ end
 
 ## Usage
 
-After creating your Limitables, Plan, and User models, you are ready to start enforcing limits.
+After creating your Limitables, Plans, and User, you are ready to start enforcing limits.
 
 ```ruby
 # widgets_controller.rb
@@ -115,7 +118,7 @@ You can also test for features:
 
 ## Rails Integration
 
-When used inside a Rails project, Planify automatically adds two methods to your controllers.: `enforce_limit!` and `limit_exceeded!`. `enforce_limit!` will call `limit_exceeded!` if the user is over their limit.
+When used inside a Rails project, Planify automatically adds two methods to your controllers: `enforce_limit!` and `limit_exceeded!`. `enforce_limit!` will call `limit_exceeded!` if the user is over their limit.
 
 ```ruby
 # app/controllers/widget_controller.rb
