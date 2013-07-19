@@ -54,7 +54,7 @@ end
 ```
 
 ### Users
-Add the `Planify::User` mixin to your user class. This will keep track of how many limitables the user has created, as well as their plan and and plan overrides:
+Add the `Planify::User` mixin to your user class. This will keep track of how many limitables the user has created, as well as their plan and plan overrides:
 
 ```ruby
 class User
@@ -130,14 +130,13 @@ class WidgetController < ApplicationController
   private
 
   def enforce_widget_limit
+    # If the user's Widget limit is exceeded, limit_exceeded! will be called
     enforce_limit! current_user, Widget
   end
 end
 ```
 
-If the user's Widget limit is exceeded it will raise an exception.
-
-You can change this behavior by creating your own `limit_exceeded!` method in your `ApplicationController`.
+The default behavior of `limit_exceeded!` is to raise an Exception. You can change this behavior by creating your own `limit_exceeded!` method in your `ApplicationController`.
 
 ```ruby
 # app/controllers/application_controller.rb
