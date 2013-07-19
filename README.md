@@ -1,4 +1,4 @@
-Planify [![Build Status](https://secure.travis-ci.org/maildropr/planify.png?branch=master)](http://travis-ci.org/maildropr/planify) [![Code Climate](https://codeclimate.com/github/maildropr/planify.png)](https://codeclimate.com/github/maildropr/planify) [![Coverage Status](https://coveralls.io/repos/maildropr/planify/badge.png)](https://coveralls.io/r/maildropr/planify)
+Planify [![Build Status](https://secure.travis-ci.org/maildropr/planify.png?branch=master)](http://travis-ci.org/maildropr/planify) [![Code Climate](https://codeclimate.com/github/maildropr/planify.png)](https://codeclimate.com/github/maildropr/planify) [![Coverage Status](https://coveralls.io/repos/maildropr/planify/badge.png)](https://coveralls.io/r/maildropr/planify) [![Gem Version](https://badge.fury.io/rb/planify.png)](http://badge.fury.io/rb/planify)
 ========
 
 Make subscription plans and enforce their limits with Planify.
