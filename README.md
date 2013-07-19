@@ -45,9 +45,12 @@ Next we define a Plan. Plans hold information about how many instances of a Limi
 ```ruby
 # config/initializers/plans.rb
 Planify::Plans.define :starter do
+  name "Starter Plan"
+  price 100 # $1 (Price in cents)
+
   max Widget, 100 # Can only create up to 100 widgets before needing to upgrade
 
-  feature :ajax_search # Plan includes support for AJAX search
+  feature :ajax_search
 end
 ```
 
@@ -106,17 +109,7 @@ You can also test for features:
 
 ## Rails Integration
 
-Planify includes a Rails mixin, which adds some useful features to your controllers. To use it, include `Planify::Integrations::Rails` in your `ApplicationController`:
-
-```ruby
-# app/controllers/application_controller.rb
-class ApplicationController < ActionController::Base
-  include Planify::Integrations::Rails
-  ...
-end
-```
-
-This will include two methods: `enforce_limit!` and `limit_exceeded!`. `enforce_limit!` will call `limit_exceeded!` if the user is over their limit.
+When used inside a Rails project, Planify automatically adds two methods to your controllers.: `enforce_limit!` and `limit_exceeded!`. `enforce_limit!` will call `limit_exceeded!` if the user is over their limit.
 
 ```ruby
 # app/controllers/widget_controller.rb
@@ -135,13 +128,11 @@ end
 
 If the user's Widget limit is exceeded it will raise an exception.
 
-You can change this behavior by creating your own `limit_exceeded!` method in your ApplicationController.
+You can change this behavior by creating your own `limit_exceeded!` method in your `ApplicationController`.
 
 ```ruby
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
-  include Planify::Integrations::Rails
-  
   def limit_exceeded!
     redirect_to upgrade_plan_url, notice: "You must upgrade your account!"
   end

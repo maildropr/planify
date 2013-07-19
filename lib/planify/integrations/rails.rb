@@ -4,8 +4,11 @@ module Planify
     module Rails
 
       def self.included(base)
-        base.send(:extend, Helpers)
-        base.send(:include, Helpers)
+        base.class_eval do
+          extend Helpers
+          include Helpers
+          helper Helpers
+        end
       end
       
       module Helpers
