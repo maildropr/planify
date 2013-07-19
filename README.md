@@ -45,9 +45,6 @@ Next we define a Plan. Plans hold information about how many instances of a Limi
 ```ruby
 # config/initializers/plans.rb
 Planify::Plans.define :starter do
-  name "Starter Plan"
-  price 100 # $1 (Price in cents)
-
   max Widget, 100 # Can only create up to 100 widgets before needing to upgrade
 
   feature :ajax_search
@@ -71,6 +68,15 @@ Then assign the user a plan:
 @user.has_plan :starter
 ```
 
+You can also assign user-specific overrides to plan limits and features:
+
+```ruby
+# This user has half the widgets and no ajax-search
+@user.has_plan :starter do
+  max Widget, 50
+  feature :ajax_search, false
+end
+```
 
 ## Usage
 
