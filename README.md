@@ -90,10 +90,9 @@ After creating your Limitables, Plans, and User, you are ready to start enforcin
 
 def create
   @user = current_user
-  @widget = Widget.create(params[:widget])
 
-  if @user.can_create? @widget # User has not hit their Widget cap
-    @widget.save
+  if @user.can_create? Widget # User has not hit their Widget cap
+    @widget = Widget.create(params[:widget])
     @user.created :widget
   end
 end
