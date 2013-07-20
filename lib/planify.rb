@@ -6,7 +6,7 @@ require "planify/plan"
 require "planify/plans"
 require "planify/user"
 
-require "planify/integrations/rails" if defined?(Rails)
+require "planify/railtie" if defined?(Rails)
 
 module Planify
   module Limitable; end
