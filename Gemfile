@@ -1,7 +1,11 @@
 source "https://rubygems.org"
 gemspec
 
-gem "rake"
+group :development, :test do
+  gem "rake"
+  gem "activesupport"
+  gem "actionpack"
+end
 
 group :test do
   gem "rspec", "~> 2.14"
