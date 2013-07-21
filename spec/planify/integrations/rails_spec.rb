@@ -1,6 +1,5 @@
 require "spec_helper"
 require "planify/integrations/rails"
-require "action_controller"
 
 METHODS = [
   :enforce_limit!,
@@ -8,19 +7,18 @@ METHODS = [
 ]
 
 module ActionController
-  class TestBase
+  class Base
     def self.helper(*args); end
   end
 end
 
 describe Planify::Integrations::Rails do
-  subject { ActionController::TestBase.send(:include, Planify::Integrations::Rails) }
+  subject { ActionController::Base.send(:include, Planify::Integrations::Rails) }
 
   describe ".included" do
     it "it adds controller methods to ActionController::Base" do
-      ActionController::Base.send(:include, Planify::Integrations::Rails)
       METHODS.each do |method|
-        ActionController::Base.should respond_to method
+        subject.should respond_to method
       end
     end
   end

@@ -3,8 +3,6 @@ gemspec
 
 group :development, :test do
   gem "rake"
-  gem "activesupport"
-  gem "actionpack"
 end
 
 group :test do
