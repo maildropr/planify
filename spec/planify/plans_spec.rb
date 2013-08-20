@@ -46,6 +46,19 @@ describe Planify::Plans do
     end
   end
 
+  describe ".all" do
+    before { Planify::Plans.clear }
+
+    it "returns all defined plans" do
+      Planify::Plans.all.should be_empty
+      
+      Planify::Plans.define :plan1
+      Planify::Plans.define :plan2
+
+      Planify::Plans.all.size.should == 2
+    end
+  end
+
   describe ".clear" do
     before { Planify::Plans.define :starter }
 
