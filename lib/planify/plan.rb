@@ -31,6 +31,18 @@ module Planify
       @features[feature_name.to_sym] = enabled
     end
 
+    # Enables a feature on this plan.
+    # @param [String,Symbol] feature_name The name of the feature to enable
+    def enable_feature(feature_name)
+      feature(feature_name, true)
+    end
+
+    # Disables a feature on this plan.
+    # @param [String,Symbol] feature_name The name of the feature to disable
+    def disable_feature(feature_name)
+      feature(feature_name, false)
+    end
+
     # Boolean method for determining if a certain feature is enabled in this plan
     # @param [String,Symbol] feature the feature to check
     # @return [Boolean] +true+ if +feature+ is enabled, +false+ if +feature+ is disabled or undefined.

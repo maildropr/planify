@@ -34,6 +34,20 @@ describe Planify::Plan do
     end
   end
 
+  describe ".enable_feature" do
+    it "enables the named feature" do
+      subject.enable_feature(:live_reload)
+      subject.feature_enabled?(:live_reload).should be_true
+    end
+  end
+
+  describe ".disable_feature" do
+    it "disables the named feature" do
+      subject.disable_feature(:live_reload)
+      subject.feature_enabled?(:live_reload).should be_false
+    end
+  end
+
   describe ".feature_enabled?" do
     before { subject.feature(:ajax_search) }
 

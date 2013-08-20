@@ -19,11 +19,8 @@ module Planify
       plan_info = PlanInfo.new(name: plan_name)
 
       if block_given?
-        plan = plan.dup
         configuration = Planify::Plan.new
         configuration.instance_eval &block
-
-        plan.merge! configuration
 
         plan_info.limit_overrides = configuration.limits.all
         plan_info.feature_overrides = configuration.features

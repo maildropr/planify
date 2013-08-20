@@ -47,9 +47,16 @@ Plans hold information about how many instances of a `Limitable` can be created,
 ```ruby
 # config/initializers/plans.rb
 Planify::Plans.define :starter do
+  price 5.00 # Costs 5 dollars
+  description "The perfect plan to get you started"
+
   max Widget, 100 # Can only create up to 100 widgets before needing to upgrade
 
-  feature :ajax_search
+  feature :ajax_search # This plan supports ajax search
+  enable_feature :live_reload # And live reloading
+
+  disable_feature :guest_account # But no guest accounts
+  feature :support_tickets, false # And no support tickets
 end
 ```
 
@@ -77,7 +84,7 @@ You can also assign user-specific overrides to plan limits and features:
 # This user has half the widgets and no ajax-search
 @user.has_plan :starter do
   max Widget, 50
-  feature :ajax_search, false
+  disable_feature :ajax_search
 end
 ```
 
