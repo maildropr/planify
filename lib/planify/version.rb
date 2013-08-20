@@ -1,3 +1,3 @@
 module Planify
-  VERSION = [1, 0, 0].join(".")
+  VERSION = [1, 0, 1].join(".")
 end
