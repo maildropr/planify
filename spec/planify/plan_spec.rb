@@ -99,6 +99,36 @@ describe Planify::Plan do
         subject.price.should == 15.00
       end
     end
+
+    context "when no price is set" do
+      it "returns zero" do
+        Planify::Plan.new.price.should == 0.00
+      end
+    end
+  end
+
+  describe ".description" do
+    context "with arguments" do
+      it "sets the plan description" do
+        subject.description "The best plan ever!"
+
+        subject.description.should == "The best plan ever!"
+      end
+    end
+
+    context "without arguments" do
+      before { subject.description("Plan Description") }
+
+      it "returns the plan description" do
+        subject.description.should == "Plan Description"
+      end
+    end
+
+    context "when no description is set" do
+      it "returns nil" do
+        Planify::Plan.new.description.should be_nil
+      end
+    end
   end
 
   describe ".merge!" do

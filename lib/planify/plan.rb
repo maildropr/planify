@@ -56,6 +56,17 @@ module Planify
       @price ||= 0.00
     end
 
+    # Sets or returns the description of this plan
+    # When called without arguments, it returns the description
+    # When called with arguments, the description is set to the first argument provided.
+    def description(*args)
+      unless args.empty?
+        @description = args.first
+      end
+
+      @description ||= nil
+    end
+
     # Returns a duplicate instance of this plan
     # @return [Planify::Plan] an exact copy of this plan
     def dup
