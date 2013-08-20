@@ -82,6 +82,25 @@ describe Planify::Plan do
     end
   end
 
+
+  describe ".price" do
+    context "with arguments" do
+      it "sets the current price" do
+        subject.price(10.00)
+
+        subject.price.should == 10.00
+      end
+    end
+
+    context "without arguments" do
+      before { subject.price(15.00) }
+
+      it "returns the current price" do
+        subject.price.should == 15.00
+      end
+    end
+  end
+
   describe ".merge!" do
 
     let(:pro_plan) do

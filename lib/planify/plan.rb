@@ -24,6 +24,9 @@ module Planify
       @limits.get(limitable)
     end
 
+    # Defines a feature of this plan
+    # @param [String,Symbol] feature_name The name of the feature
+    # @param [Boolean] enabled Sets availability of the feature for this plan
     def feature(feature_name, enabled = true) 
       @features[feature_name.to_sym] = enabled
     end
@@ -40,6 +43,17 @@ module Planify
     # @return [Boolean] +true+ if +feature+ is disabled or undefined, +false+ if +feature+ is enabled.
     def feature_disabled?(feature)
       !feature_enabled?(feature)
+    end
+
+    # Sets or returns the price of this plan.
+    # When called without arguments, it returns the price.
+    # When called with arguments, the price is set to the first argument provided.
+    def price(*args)
+      unless args.empty?
+        @price = args.first
+      end
+      
+      @price ||= 0.00
     end
 
     # Returns a duplicate instance of this plan
