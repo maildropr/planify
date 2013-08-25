@@ -68,6 +68,17 @@ module Planify
       @price ||= 0.00
     end
 
+    # Sets or returns the name of this plan
+    # When called without arguments, it returns the name
+    # When called with arguments, the name is set to the first argument provided
+    def name(*args)
+      unless args.empty?
+        @name = args.first
+      end
+
+      @name ||= nil
+    end
+
     # Sets or returns the description of this plan
     # When called without arguments, it returns the description
     # When called with arguments, the description is set to the first argument provided.

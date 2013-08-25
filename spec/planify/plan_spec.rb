@@ -145,6 +145,30 @@ describe Planify::Plan do
     end
   end
 
+  describe ".name" do
+    context "with arguments" do
+      it "sets the plan name" do
+        subject.name "Starter Plan"
+
+        subject.name.should == "Starter Plan"
+      end
+    end
+
+    context "without arguments" do
+      before { subject.name("Premium Plan") }
+
+      it "returns the plan name" do
+        subject.name.should == "Premium Plan"
+      end
+    end
+
+    context "when no name is set" do
+      it "returns nil" do
+        Planify::Plan.new.name.should be_nil
+      end
+    end
+  end
+
   describe ".merge!" do
 
     let(:pro_plan) do
