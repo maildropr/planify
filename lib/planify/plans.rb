@@ -28,7 +28,7 @@ module Planify
     # Returns the list of plans
     # @return [Array] an array of Planify::Plan instances
     def self.all
-      @plans
+      @plans.values
     end
 
     # Removes all currently defined plans

@@ -57,6 +57,12 @@ describe Planify::Plans do
 
       Planify::Plans.all.size.should == 2
     end
+
+    it "returns an array of plans" do
+      Planify::Plans.define :plan1
+
+      Planify::Plans.all.should be_an Array
+    end
   end
 
   describe ".clear" do
