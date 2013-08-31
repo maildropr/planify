@@ -4,6 +4,8 @@ describe Planify::User, focus: false do
   subject { User.new }
   before(:each) do
     Planify::Plans.define :starter do
+      name "Starter Plan"
+      price 10.00
       max Post, 100
       feature :ajax_search
     end
@@ -12,11 +14,12 @@ describe Planify::User, focus: false do
   end
 
   describe ".has_plan" do
+
     it "should assign the plan" do
       subject.plan.limit(Post).should == 100
     end
 
-    it "should persist the plan name" do
+    it "should persist the plan" do
       subject.save!
       user = User.find(subject.id)
 

@@ -173,6 +173,10 @@ describe Planify::Plan do
 
     let(:pro_plan) do
       Planify::Plans.define :pro do
+        name "Pro"
+        description "The Most Pro-tastic Plan"
+        price 5000.00
+
         max Post, 1000
         feature :ajax_search
       end
@@ -183,6 +187,13 @@ describe Planify::Plan do
 
       subject.features.keys.should include :ajax_search
       subject.limit(Post).should == 1000
+    end
+
+    it "merges name, description and price attributes into this plan" do
+      subject.merge! pro_plan
+      subject.name.should == "Pro"
+      subject.description.should == "The Most Pro-tastic Plan"
+      subject.price.should == 5000.00
     end
   end
 

@@ -111,6 +111,10 @@ module Planify
         max klass, lim
       end
 
+      name other_plan.name
+      description other_plan.description
+      price other_plan.price
+
       nil
     end
 
